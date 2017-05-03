@@ -1,0 +1,87 @@
+﻿@model PL.Models.IssueCreateViewModel
+@{
+    ViewBag.Title = "CreateIssue";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Issue</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Issue.CustomerName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Issue.CustomerName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Issue.CustomerName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Issue.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Issue.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Issue.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Issue.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.Issue.Type, "Select a Type", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Issue.Type, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+@if (Model.SelectedEmployeeId != null)
+{
+        @Html.HiddenFor(model => model.NewEmployeeId, new { @Value = Model.SelectedEmployeeId })
+        <div class="form-group">
+            @Html.LabelFor(model => model.NewProjectId, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.NewProjectId, Model.AvailableProjects, "Select project...")
+                @Html.ValidationMessageFor(model => model.NewProjectId, "", new {@class = "text-danger"})
+            </div>
+        </div>
+}
+
+@if (Model.SelectedProjectId != null)
+{       @Html.HiddenFor(model => model.NewProjectId, new {@Value=Model.SelectedProjectId})
+        <div class="form-group">
+            @Html.LabelFor(model => model.NewEmployeeId, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.NewEmployeeId, Model.AvailableEmployees, "Select employee...")
+                @Html.ValidationMessageFor(model => model.NewEmployeeId, "", new {@class = "text-danger"})
+            </div>
+        </div>
+}        
+        @Html.HiddenFor(model => model.SelectedProjectId)
+        @Html.HiddenFor(model => model.SelectedEmployeeId)
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @if (Model.SelectedProjectId != null)
+    {
+        @Html.ActionLink("Back to List", "IndexByProject", new { id = Model.SelectedProjectId });
+    }
+    @if (Model.SelectedEmployeeId != null)
+    {
+        @Html.ActionLink("Back to List", "IndexByEmployee", new { id = Model.SelectedEmployeeId });
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

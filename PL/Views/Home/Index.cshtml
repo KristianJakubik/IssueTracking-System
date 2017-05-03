@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Issue Tracking System</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Companies</h2>
+        @Html.ActionLink("Manage companies", "Companies", "Company")
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Persons</h2>
+        @Html.ActionLink("Manage persons", "Persons", "Person")
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Employees</h2>
+        @Html.ActionLink("Manage employees", "Employees", "Employee")
+    </div>
+</div>

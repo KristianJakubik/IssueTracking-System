@@ -1,0 +1,72 @@
+﻿@model PL.Models.IssueViewModel
+
+@{
+    ViewBag.Title = "Issues";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Issues</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", new {projectId = Model.ProjectId, employeeId = Model.EmployeeId})
+</p>
+
+<table class="table">
+    <tr>
+        <th>Description</th>
+        <th>Type</th>
+        <th>State</th>
+        <th>CustomerName</th>
+        <th>Employee</th>
+        <th>Start</th>
+        <th>End</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Issues)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.FirstName)
+                @Html.DisplayFor(modelItem => item.Employee.LastName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Beginning)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.End)
+            </td>
+            
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id, projectId = Model.ProjectId, employeeId = Model.EmployeeId }, null)
+            </td>
+            
+            <td>
+                @Html.ActionLink("Delete", "Delete", new {id = item.Id, projectId = Model.ProjectId, employeeId = Model.EmployeeId})
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div>
+    @Html.ActionLink("Back to previous list", "GetProjectsEmployees", new { projectId = Model.ProjectId, employeeId = Model.EmployeeId }, null)
+</div>

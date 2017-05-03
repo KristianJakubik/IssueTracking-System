@@ -1,0 +1,48 @@
+﻿@model PL.Models.PersonViewModel
+
+@{
+    ViewBag.Title = "Persons";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Persons</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            FirstName
+        </th>
+        <th>
+            LastName
+        </th>
+        <th>
+            Contact
+        </th>
+        <th>
+            Projects
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Persons)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contact)
+            </td>
+            <td>
+                @Html.ActionLink("Manage projects", "IndexByCustomer", "Project", new { id = item.Id }, null)
+            </td>
+        </tr>
+    }
+
+</table>
